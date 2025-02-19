@@ -2,6 +2,7 @@
 #define MAIN_H
 
 int _putchar(char c);
-void print_alphabet(void); /* Ensure this prototype is included */
+void print_alphabet(void);
+void print_alphabet_x10(void); /* Add this prototype */
 
 #endif /* MAIN_H */
