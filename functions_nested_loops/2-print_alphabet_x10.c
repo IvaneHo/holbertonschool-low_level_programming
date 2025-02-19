@@ -1,20 +1,20 @@
 #include "main.h"
-**
- * print_alphabet_x10 - print the alphabet x10
- *
+
+/**
+ * print_alphabet_x10 - Prints 10 times the alphabet in lowercase.
  */
+
 void print_alphabet_x10(void)
 {
-	int abc, cou;
+	int i;
+	int ascii;
 
-	/* This count the amount of time. The alphabet is printed*/
-	cou = 0;
-	while (cou < 10)
+	for (i = 1; i <= 10; i++)
 	{
-		/* This print the alphabet with a newline*/
-		for (abc = 'a'; abc <= 'z'; abc++)
-			_putchar(abc);
+		for (ascii = 97; ascii <= 122; ascii++)
+		{
+			_putchar(ascii);
+		}
 		_putchar('\n');
-		cou++;
 	}
 }
