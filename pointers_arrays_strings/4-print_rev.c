@@ -1,21 +1,35 @@
 #include <stdio.h>
+#include <string.h>
+#include "main.h"
 
-char * ft_rev_print( const char *str )
+/**
+ * _strlen - Counts the amount of char
+ * @str: String
+ * Return: Length of string
+ */
+int _strlen(char *str)
 {
-    const char *p = str;
+	int len = 0;
 
-    while ( *p ) ++p;
-
-    while ( p != str ) putchar( *--p );  // substitute the call of putchar for write( 1, *--p, 1 )
-
-    putchar( '\n' );  // substitute the call of putchar for write( 1, "\n", 1 )
-
-    return ( char * )str;
+	while (*str != '\0')
+	{
+		str++;
+		len++;
+	}
+	return (len);
 }
 
-int main(void) 
-{
-    ft_rev_print( "I do not fear computers. I fear the lack of them - Isaac Asimov" );
 
-    return 0;
+/**
+ * print_rev - Prints a string, in reverse
+ * @str: String
+ */
+void print_rev(char *str)
+{
+	int i;
+	int s_size = _strlen(str);
+
+	for (i = s_size - 1; i >= 0; i--)
+		_putchar(str[i]);
+	_putchar('\n');
 }
