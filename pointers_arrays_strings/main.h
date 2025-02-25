@@ -1,12 +1,10 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void _puts(char *str);
-int _putchar(char c);
+void print_rev(char *s); /* Déclaration de la fonction */
+int _putchar(char c); /* Déclaration de _putchar */
 
 #endif /* MAIN_H */
-
-
 
 
 
