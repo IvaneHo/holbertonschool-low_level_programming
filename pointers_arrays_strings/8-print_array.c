@@ -8,15 +8,15 @@
  */
 void print_array(int *a, int n)
 {
-    int i;
+int i;
 
-    for (i = 0; i < n; i++)
-    {
-        printf("%d", a[i]);
+for (i = 0; i < n; i++)
+{
+printf("%d", a[i]);
 
-        /* Ajouter une virgule et un espace sauf pour le dernier élément */
-        if (i != n - 1)
-            printf(", ");
-    }
-    printf("\n");
+/* Ajouter une virgule et un espace sauf pour le dernier élément */
+if (i != n - 1)
+printf(", ");
+}
+printf("\n");
 }
