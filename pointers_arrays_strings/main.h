@@ -37,6 +37,15 @@ int _putchar(char c);
 void reverse_array(int *a, int n);
 int _putchar(char c);
 
+char *string_toupper(char *str);
+int _putchar(char c);
+
+
+
+
+
+
+
 
 
 
