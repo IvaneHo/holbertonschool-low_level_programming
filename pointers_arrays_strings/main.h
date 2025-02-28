@@ -40,7 +40,8 @@ int _putchar(char c);
 char *string_toupper(char *str);
 int _putchar(char c);
 
-
+char *cap_string(char *str);
+int _putchar(char c);
 
 
 
