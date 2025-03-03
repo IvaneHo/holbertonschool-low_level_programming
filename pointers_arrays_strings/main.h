@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+
 void rev_string(char *s);
 int _putchar(char c);
 
@@ -44,6 +45,9 @@ char *cap_string(char *str);
 int _putchar(char c);
 
 
+/* C - Even more pointers, arrays and strings */
+
+char *_memset(char *s, char b, unsigned int n);
 
 
 
