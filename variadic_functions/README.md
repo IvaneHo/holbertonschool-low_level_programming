@@ -1,22 +1,31 @@
-🔢 0x10. C - Variadic Functions
+# 🔢 0x10. C - Variadic Functions
 
+![C Programming](https://img.shields.io/badge/C-Programming-blue.svg)  
+📌 **Variadic functions** allow passing a **variable number of arguments** to a function. This project explores how to use them efficiently in C.
 
-📌 Variadic functions allow us to pass a variable number of arguments to a function. This project teaches how to use them in C.
-🎯 Learning Objectives
+---
 
-✅ What are variadic functions?
-✅ How to use va_start, va_arg, and va_end
-✅ Why and how to use the const keyword
-✅ Handling different argument types dynamically
-📁 Project Files & Functions
-📂 File	🔍 Description
-0-sum_them_all.c	Returns the sum of all parameters
-1-print_numbers.c	Prints numbers with a separator
-2-print_strings.c	Prints strings, handling NULL values
-3-print_all.c	Prints anything based on a format string
-variadic_functions.h	Header file containing all function prototypes
-🛠 Function Prototypes
+## 🎯 **Learning Objectives**
+✅ Understand **variadic functions**  
+✅ Use `va_start`, `va_arg`, and `va_end`  
+✅ Learn the importance of the **const** keyword  
+✅ Handle different argument types dynamically  
 
+---
+
+## 📂 **Project Files & Functions**
+| 📄 File               | 🔍 Description |
+|----------------------|--------------|
+| `0-sum_them_all.c`  | Returns the sum of all parameters |
+| `1-print_numbers.c` | Prints numbers with a separator |
+| `2-print_strings.c` | Prints strings, handling `NULL` values |
+| `3-print_all.c`     | Prints anything based on a format string |
+| `variadic_functions.h` | Header file containing all function prototypes |
+
+---
+
+## 🛠 **Function Prototypes**
+```c
 #ifndef VARIADIC_FUNCTIONS_H
 #define VARIADIC_FUNCTIONS_H
 
