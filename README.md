@@ -354,15 +354,17 @@ FONCTIONNEMENT GÉNÉRAL
     Comme %z n’est pas reconnu, je l’affiche tel quel : %z.
     Ce comportement est géré dans handle_format() → default : j’affiche % + le caractère.
 
+/
 
 
 
 
-    🟢 1. Start Printf
+
+🟢 1. Start Printf
 
 C’est l’appel de la fonction par l’utilisateur :
 
-_printf("Salut %s", "Betty");
+_printf("Salut %s", "Ivane");
 
 🔵 2. Vérification : format == NULL ?
 
