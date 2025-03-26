@@ -364,7 +364,7 @@ FONCTIONNEMENT GÉNÉRAL
 
 C’est l’appel de la fonction par l’utilisateur :
 
-_printf("Salut %s", "Ivane");
+_printf("Salut %s", "Betty");
 
 🔵 2. Vérification : format == NULL ?
 
