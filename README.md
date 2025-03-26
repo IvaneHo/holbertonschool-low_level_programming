@@ -353,3 +353,81 @@ FONCTIONNEMENT GÉNÉRAL
 
     Comme %z n’est pas reconnu, je l’affiche tel quel : %z.
     Ce comportement est géré dans handle_format() → default : j’affiche % + le caractère.
+
+
+
+
+
+    🟢 1. Start Printf
+
+C’est l’appel de la fonction par l’utilisateur :
+
+_printf("Salut %s", "Betty");
+
+🔵 2. Vérification : format == NULL ?
+
+Si format est nul, le programme retourne immédiatement -1 pour éviter une erreur :
+
+if (format == NULL)
+    return (-1);
+
+🔵 3. Initialisation de va_list
+
+Initialisation de la gestion des arguments variables :
+
+va_list args;
+va_start(args, format);
+
+🔁 4. Boucle : format[i] != '\0'
+
+Parcours caractère par caractère de la chaîne format :
+
+while (format[i]) { ... }
+
+🔍 5. Si format[i] == '%'
+
+Tu vérifies si le caractère est %. Si oui, tu examines format[i + 1].
+🔢 6. Analyse de format[i + 1]
+
+En fonction du caractère suivant %, tu appelles la bonne fonction :
+Caractère	Action
+'c'	print_char(args)
+'s'	print_string(args)
+'d' / 'i'	print_int(args)
+'%'	print_percent()
+autre	Affiche % suivi du caractère inconnu
+🟡 7. Fonctions appelées selon le format
+
+    print_char(args) : affiche un seul caractère
+
+    print_string(args) : affiche une chaîne de caractères
+
+    print_int(args) : affiche un entier signé (gère aussi les négatifs)
+
+    print_percent() : affiche simplement %
+
+⚠️ 8. Format inconnu
+
+Si % est suivi d’un caractère non reconnu (ex: %r, %z),
+tu affiches :
+
+_putchar('%');
+_putchar(format[i + 1]);
+
+🔄 9. i++ et continuation
+
+Après avoir traité un format (%s, %d, etc.), tu avances dans la chaîne avec i++ pour continuer la boucle.
+🛑 10. Fin de la boucle while
+
+Quand tu atteins \0 (fin de la chaîne), la boucle se termine.
+✅ 11. Nettoyage : va_end(args)
+
+Tu termines proprement la lecture des arguments :
+
+va_end(args);
+
+🔚 12. Retour : return count
+
+Tu retournes le nombre total de caractères affichés :
+
+return (count);
