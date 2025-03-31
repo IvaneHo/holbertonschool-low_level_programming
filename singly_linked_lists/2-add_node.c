@@ -1,6 +1,7 @@
 #include "lists.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * add_node - Adds a new node at the beginning of a list_t list.
@@ -17,6 +18,7 @@ list_t *add_node(list_t **head, const char *str)
 	new_node = malloc(sizeof(list_t));
 	if (new_node == NULL)
 	{
+		printf("Error: Memory allocation failed for new node.\n");
 		return (NULL);  /* Return NULL if memory allocation fails */
 	}
 
@@ -25,6 +27,7 @@ list_t *add_node(list_t **head, const char *str)
 	if (new_node->str == NULL)
 	{
 		free(new_node);  /* Free the node if string duplication fails */
+		printf("Error: String duplication failed.\n");
 		return (NULL);
 	}
 
