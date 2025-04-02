@@ -1,0 +1,14 @@
+*.o
+a.out
+*.out
+*.exe
+*.elf
+[a-z]
+*
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+.vscode/
+.idea/
