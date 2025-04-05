@@ -12,5 +12,7 @@ int open_file_from(const char *filename);
 int open_file_to(const char *filename);
 void close_fd(int fd);
 void copy_file(int fd_from, int fd_to, const char *file_to);
+int _putchar(char c);
+
 
 #endif /* MAIN_H */
