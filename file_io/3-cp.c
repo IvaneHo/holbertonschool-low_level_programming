@@ -3,13 +3,11 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#define BUF_SIZE 1024
-
 /**
- * print_error - Prints an error message and exits
- * @code: The exit code
- * @msg: The format message to print
- * @arg: The argument to format into the message
+ * print_error - Print error message and exit
+ * @code: Exit code
+ * @msg: Error message
+ * @arg: Argument string (filename)
  */
 void print_error(int code, const char *msg, const char *arg)
 {
@@ -18,8 +16,8 @@ void print_error(int code, const char *msg, const char *arg)
 }
 
 /**
- * safe_close - Closes a file descriptor and handles errors
- * @fd: The file descriptor to close
+ * safe_close - Closes a file descriptor with error check
+ * @fd: File descriptor to close
  */
 void safe_close(int fd)
 {
@@ -31,17 +29,16 @@ void safe_close(int fd)
 }
 
 /**
- * main - Copies the content of one file into another
+ * main - Copies contents of one file to another
  * @ac: Argument count
  * @av: Argument vector
- *
- * Return: 0 on success, exits with codes 97 to 100 on failure
+ * Return: 0 on success, exit on failure
  */
 int main(int ac, char **av)
 {
 	int fd_from, fd_to;
 	ssize_t r, w;
-	char buffer[BUF_SIZE];
+	char buffer[1024];
 
 	if (ac != 3)
 		print_error(97, "Usage: cp file_from file_to\n", "");
@@ -54,7 +51,7 @@ int main(int ac, char **av)
 	if (fd_to == -1)
 		safe_close(fd_from), print_error(99, "Error: Can't write to %s\n", av[2]);
 
-	while ((r = read(fd_from, buffer, BUF_SIZE)) > 0)
+	while ((r = read(fd_from, buffer, 1024)) > 0)
 	{
 		w = write(fd_to, buffer, r);
 		if (w == -1 || w != r)
