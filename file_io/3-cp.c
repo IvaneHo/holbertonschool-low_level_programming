@@ -4,22 +4,22 @@
 #include <unistd.h>
 
 /**
- * print_error - Print error message and exit
- * @code: Exit code
- * @msg: Error message
- * @arg: Argument string (filename)
+ * print_error - prints error to stderr and exits
+ * @code: exit code
+ * @msg: format string
+ * @file: filename to print
  */
-void print_error(int code, const char *msg, const char *arg)
+void print_error(int code, const char *msg, const char *file)
 {
-	dprintf(STDERR_FILENO, msg, arg);
+	dprintf(STDERR_FILENO, msg, file);
 	exit(code);
 }
 
 /**
- * safe_close - Closes a file descriptor with error check
- * @fd: File descriptor to close
+ * close_file - closes fd and checks for error
+ * @fd: file descriptor
  */
-void safe_close(int fd)
+void close_file(int fd)
 {
 	if (close(fd) == -1)
 	{
@@ -29,9 +29,9 @@ void safe_close(int fd)
 }
 
 /**
- * main - Copies contents of one file to another
- * @ac: Argument count
- * @av: Argument vector
+ * main - copies a file to another file
+ * @ac: argument count
+ * @av: argument values
  * Return: 0 on success, exit on failure
  */
 int main(int ac, char **av)
@@ -49,20 +49,29 @@ int main(int ac, char **av)
 
 	fd_to = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (fd_to == -1)
-		safe_close(fd_from), print_error(99, "Error: Can't write to %s\n", av[2]);
+	{
+		close_file(fd_from);
+		print_error(99, "Error: Can't write to %s\n", av[2]);
+	}
 
 	while ((r = read(fd_from, buffer, 1024)) > 0)
 	{
 		w = write(fd_to, buffer, r);
-		if (w == -1 || w != r)
-			safe_close(fd_from), safe_close(fd_to),
+		if (w != r)
+		{
+			close_file(fd_from);
+			close_file(fd_to);
 			print_error(99, "Error: Can't write to %s\n", av[2]);
+		}
 	}
 	if (r == -1)
-		safe_close(fd_from), safe_close(fd_to),
+	{
+		close_file(fd_from);
+		close_file(fd_to);
 		print_error(98, "Error: Can't read from file %s\n", av[1]);
+	}
 
-	safe_close(fd_from);
-	safe_close(fd_to);
+	close_file(fd_from);
+	close_file(fd_to);
 	return (0);
 }
