@@ -40,11 +40,15 @@ void open_files(char **av, int *fd_from, int *fd_to)
 	if (*fd_from == -1)
 		print_error(98, "Error: Can't read from file %s\n", av[1]);
 
-	*fd_to = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	*fd_to = open(av[2], O_WRONLY | O_TRUNC);
 	if (*fd_to == -1)
 	{
-		close_file(*fd_from);
-		print_error(99, "Error: Can't write to %s\n", av[2]);
+		*fd_to = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+		if (*fd_to == -1)
+		{
+			close_file(*fd_from);
+			print_error(99, "Error: Can't write to %s\n", av[2]);
+		}
 	}
 }
 
