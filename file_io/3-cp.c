@@ -1,54 +1,39 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 /**
- * print_error - prints error message to stderr and exits
- * @code: exit code
- * @msg: format string
- * @arg: file name
- */
-void print_error(int code, const char *msg, const char *arg)
-{
-	dprintf(STDERR_FILENO, msg, arg);
-	exit(code);
-}
-
-/**
- * safe_close - closes file descriptor and handles error
- * @fd: file descriptor
- */
-void safe_close(int fd)
-{
-	if (close(fd) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-		exit(100);
-	}
-}
-
-/**
- * main - copies the content of one file to another
+ * main - copies the content of a file to another
  * @ac: argument count
  * @av: argument vector
- * Return: 0 on success, exits with specific codes on error
+ * Return: 0 on success, exits with codes 97-100 on failure
  */
 int main(int ac, char **av)
 {
-	int fd_from, fd_to;
+	int fd_from, fd_to, c_from, c_to;
 	ssize_t r, w;
 	char buffer[1024];
 
 	if (ac != 3)
-		print_error(97, "Usage: cp file_from file_to\n", "");
+	{
+		dprintf(2, "Usage: cp file_from file_to\n");
+		exit(97);
+	}
 
 	fd_from = open(av[1], O_RDONLY);
 	if (fd_from == -1)
-		print_error(98, "Error: Can't read from file %s\n", av[1]);
+	{
+		dprintf(2, "Error: Can't read from file %s\n", av[1]);
+		exit(98);
+	}
 
 	fd_to = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
-		safe_close(fd_from);
-		print_error(99, "Error: Can't write to %s\n", av[2]);
+		dprintf(2, "Error: Can't write to %s\n", av[2]);
+		close(fd_from);
+		exit(99);
 	}
 
 	while ((r = read(fd_from, buffer, 1024)) > 0)
@@ -56,19 +41,33 @@ int main(int ac, char **av)
 		w = write(fd_to, buffer, r);
 		if (w != r)
 		{
-			safe_close(fd_from);
-			safe_close(fd_to);
-			print_error(99, "Error: Can't write to %s\n", av[2]);
+			dprintf(2, "Error: Can't write to %s\n", av[2]);
+			close(fd_from);
+			close(fd_to);
+			exit(99);
 		}
 	}
 	if (r == -1)
 	{
-		safe_close(fd_from);
-		safe_close(fd_to);
-		print_error(98, "Error: Can't read from file %s\n", av[1]);
+		dprintf(2, "Error: Can't read from file %s\n", av[1]);
+		close(fd_from);
+		close(fd_to);
+		exit(98);
 	}
 
-	safe_close(fd_from);
-	safe_close(fd_to);
+	c_from = close(fd_from);
+	if (c_from == -1)
+	{
+		dprintf(2, "Error: Can't close fd %d\n", fd_from);
+		exit(100);
+	}
+
+	c_to = close(fd_to);
+	if (c_to == -1)
+	{
+		dprintf(2, "Error: Can't close fd %d\n", fd_to);
+		exit(100);
+	}
+
 	return (0);
 }
